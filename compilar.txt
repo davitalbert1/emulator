@@ -1,0 +1,29 @@
+Como compilar e executar o emulador grafico (Dear ImGui + SDL2):
+
+Requisitos:
+- Um compilador C++ com suporte para C++20 (GCC 10+, Clang 10+, ou MSVC 2019+).
+- CMake instalado (versão 3.15 ou superior).
+- Uma conexao de internet ativa para a primeira compilacao (o CMake ira baixar automaticamente o SDL2 e o Dear ImGui via GitHub).
+
+Passos para compilação (Windows / PowerShell):
+1. Abra o PowerShell no diretorio do projeto.
+
+2. Crie a pasta de build e configure o CMake:
+   cmake -B build
+   (A primeira execucao ira demorar um pouco, pois o CMake ira baixar e configurar o codigo fonte do SDL2 e ImGui).
+
+3. Compile o projeto:
+   cmake --build build --config Release
+
+4. Execute o aplicativo compilado:
+   .\build\Release\emulator.exe
+
+Passos para compilação (Linux / macOS / Bash):
+1. Crie o diretório de build e configure o CMake:
+   cmake -B build
+
+2. Compile o projeto:
+   cmake --build build
+
+3. Execute o aplicativo compilado:
+   ./build_win/emulator
