@@ -71,6 +71,10 @@ set(SOURCES
     src/NintendoDS.cpp
     src/Nintendo2DS.cpp
     src/Nintendo3DS.cpp
+    src/Atari2600.cpp
+    src/NES.cpp
+    src/SNES.cpp
+    src/SegaGenesis.cpp
 )
 
 add_executable(emulator ${SOURCES})

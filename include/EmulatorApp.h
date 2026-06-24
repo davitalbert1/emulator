@@ -28,7 +28,7 @@ private:
     uint32_t audioDevice;
     
     std::unique_ptr<Console> activeConsole;
-    int activeConsoleIndex; // 0 = GBA, 1 = GB, 2 = GBC, 3 = NDS, 4 = N2DS, 5 = N3DS
+    int activeConsoleIndex; // 0=GBA, 1=GB, 2=GBC, 3=NDS, 4=N2DS, 5=N3DS, 6=Atari, 7=NES, 8=SNES, 9=Genesis
     
     bool appRunning;
     bool emulationPlaying;

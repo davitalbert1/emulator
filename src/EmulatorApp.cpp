@@ -11,6 +11,10 @@
 #include "NintendoDS.h"
 #include "Nintendo2DS.h"
 #include "Nintendo3DS.h"
+#include "Atari2600.h"
+#include "NES.h"
+#include "SNES.h"
+#include "SegaGenesis.h"
 
 #include <iostream>
 #include <cstring>
@@ -147,6 +151,14 @@ void EmulatorApp::loadConsole(int index) {
         activeConsole = std::make_unique<Nintendo2DS>();
     } else if (index == 5) {
         activeConsole = std::make_unique<Nintendo3DS>();
+    } else if (index == 6) {
+        activeConsole = std::make_unique<Atari2600>();
+    } else if (index == 7) {
+        activeConsole = std::make_unique<NES>();
+    } else if (index == 8) {
+        activeConsole = std::make_unique<SNES>();
+    } else if (index == 9) {
+        activeConsole = std::make_unique<SegaGenesis>();
     }
 
     // Recreate SDL texture matching the console's native resolution
@@ -235,8 +247,8 @@ void EmulatorApp::updateLCDTexture() {
 void EmulatorApp::renderImGui() {
     if (showConsoleSelector) {
         // Display launcher selector window in the center of the screen
-        ImGui::SetNextWindowPos(ImVec2(340, 100), ImGuiCond_Always);
-        ImGui::SetNextWindowSize(ImVec2(600, 520), ImGuiCond_Always);
+        ImGui::SetNextWindowPos(ImVec2(320, 180), ImGuiCond_Always);
+        ImGui::SetNextWindowSize(ImVec2(640, 360), ImGuiCond_Always);
         ImGui::Begin("Inicializador do Emulador Multi-Consoles", nullptr, 
                      ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
         
@@ -245,38 +257,72 @@ void EmulatorApp::renderImGui() {
         ImGui::Separator();
         ImGui::Spacing();
 
-        ImVec2 buttonSize(580, 50);
+        ImGui::Columns(2, "launcher_columns", false);
+        ImVec2 buttonSize(280, 35);
 
-        if (ImGui::Button("1. GAME BOY ADVANCE (GBA)", buttonSize)) {
+        // Column 1: Handhelds
+        ImGui::Text("Consoles Portateis:");
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        if (ImGui::Button("Game Boy Advance (GBA)", buttonSize)) {
             loadConsole(0);
             showConsoleSelector = false;
         }
         ImGui::Spacing();
-        if (ImGui::Button("2. GAME BOY CLASSICO (GB)", buttonSize)) {
+        if (ImGui::Button("Game Boy Classico (GB)", buttonSize)) {
             loadConsole(1);
             showConsoleSelector = false;
         }
         ImGui::Spacing();
-        if (ImGui::Button("3. GAME BOY COLOR (GBC)", buttonSize)) {
+        if (ImGui::Button("Game Boy Color (GBC)", buttonSize)) {
             loadConsole(2);
             showConsoleSelector = false;
         }
         ImGui::Spacing();
-        if (ImGui::Button("4. NINTENDO DS (NDS)", buttonSize)) {
+        if (ImGui::Button("Nintendo DS (NDS)", buttonSize)) {
             loadConsole(3);
             showConsoleSelector = false;
         }
         ImGui::Spacing();
-        if (ImGui::Button("5. NINTENDO 2DS", buttonSize)) {
+        if (ImGui::Button("Nintendo 2DS", buttonSize)) {
             loadConsole(4);
             showConsoleSelector = false;
         }
         ImGui::Spacing();
-        if (ImGui::Button("6. NINTENDO 3DS", buttonSize)) {
+        if (ImGui::Button("Nintendo 3DS", buttonSize)) {
             loadConsole(5);
             showConsoleSelector = false;
         }
 
+        ImGui::NextColumn();
+
+        // Column 2: Home Consoles
+        ImGui::Text("Consoles de Mesa:");
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        if (ImGui::Button("Atari 2600", buttonSize)) {
+            loadConsole(6);
+            showConsoleSelector = false;
+        }
+        ImGui::Spacing();
+        if (ImGui::Button("Nintendo (NES)", buttonSize)) {
+            loadConsole(7);
+            showConsoleSelector = false;
+        }
+        ImGui::Spacing();
+        if (ImGui::Button("Super Nintendo (SNES)", buttonSize)) {
+            loadConsole(8);
+            showConsoleSelector = false;
+        }
+        ImGui::Spacing();
+        if (ImGui::Button("Sega Genesis / Mega Drive", buttonSize)) {
+            loadConsole(9);
+            showConsoleSelector = false;
+        }
+
+        ImGui::Columns(1);
         ImGui::End();
         return; // Block rendering of other windows
     }
@@ -295,6 +341,10 @@ void EmulatorApp::renderImGui() {
             if (ImGui::MenuItem("Nintendo DS", nullptr, activeConsoleIndex == 3)) loadConsole(3);
             if (ImGui::MenuItem("Nintendo 2DS", nullptr, activeConsoleIndex == 4)) loadConsole(4);
             if (ImGui::MenuItem("Nintendo 3DS", nullptr, activeConsoleIndex == 5)) loadConsole(5);
+            if (ImGui::MenuItem("Atari 2600", nullptr, activeConsoleIndex == 6)) loadConsole(6);
+            if (ImGui::MenuItem("NES", nullptr, activeConsoleIndex == 7)) loadConsole(7);
+            if (ImGui::MenuItem("SNES", nullptr, activeConsoleIndex == 8)) loadConsole(8);
+            if (ImGui::MenuItem("Sega Genesis", nullptr, activeConsoleIndex == 9)) loadConsole(9);
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Ajuda")) {
@@ -335,6 +385,10 @@ void EmulatorApp::renderImGui() {
         else if (activeConsoleIndex == 2) filter = "Game Boy Color ROMs (*.gbc)\0*.gbc\0All Files (*.*)\0*.*\0";
         else if (activeConsoleIndex == 3) filter = "Nintendo DS ROMs (*.nds)\0*.nds\0All Files (*.*)\0*.*\0";
         else if (activeConsoleIndex == 4 || activeConsoleIndex == 5) filter = "3DS/2DS ROMs (*.3ds;*.cia)\0*.3ds;*.cia\0All Files (*.*)\0*.*\0";
+        else if (activeConsoleIndex == 6) filter = "Atari 2600 ROMs (*.a26;*.bin)\0*.a26;*.bin\0All Files (*.*)\0*.*\0";
+        else if (activeConsoleIndex == 7) filter = "NES ROMs (*.nes)\0*.nes\0All Files (*.*)\0*.*\0";
+        else if (activeConsoleIndex == 8) filter = "SNES ROMs (*.sfc;*.smc)\0*.sfc;*.smc\0All Files (*.*)\0*.*\0";
+        else if (activeConsoleIndex == 9) filter = "Sega Genesis ROMs (*.gen;*.md)\0*.gen;*.md\0All Files (*.*)\0*.*\0";
         
         HWND hwnd = NULL;
         #ifdef _WIN32
