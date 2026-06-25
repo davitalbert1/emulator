@@ -9,11 +9,11 @@
 class SegaGenesis : public Console {
 public:
     struct GenesisHeader {
-        char consoleName[17];   // 16 chars + null terminator
-        char copyright[17];     // 16 chars + null terminator
+        char consoleName[17]; // 16 chars + null terminator
+        char copyright[17]; // 16 chars + null terminator
         char domesticTitle[49]; // 48 chars + null terminator
         char overseasTitle[49]; // 48 chars + null terminator
-        char productCode[15];   // 14 chars + null terminator
+        char productCode[15]; // 14 chars + null terminator
         uint16_t checksum;
         uint32_t romStart;
         uint32_t romEnd;
@@ -56,8 +56,8 @@ private:
     // Motorola 68000 registers
     uint32_t D[8]; // Data registers D0-D7
     uint32_t A[8]; // Address registers A0-A7 (A7 is SP)
-    uint16_t SR;   // Status Register
-    uint32_t PC;   // Program Counter
+    uint16_t SR; // Status Register
+    uint32_t PC; // Program Counter
 
     std::vector<uint32_t> frameBuffer;
 

@@ -10,10 +10,10 @@ class GameBoyAdvance : public Console {
 public:
     // Struct representing GBA ROM Header info (parsed from offset 0xA0 to 0xBE of ROM)
     struct ROMHeader {
-        char gameTitle[13];      // 12 chars + null terminator
-        char gameCode[5];        // 4 chars + null terminator
-        char makerCode[3];      // 2 chars + null terminator
-        uint8_t fixedValue;     // Must be 0x96
+        char gameTitle[13]; // 12 chars + null terminator
+        char gameCode[5]; // 4 chars + null terminator
+        char makerCode[3]; // 2 chars + null terminator
+        uint8_t fixedValue; // Must be 0x96
         uint8_t mainUnitCode;
         uint8_t deviceType;
         uint8_t softwareVersion;

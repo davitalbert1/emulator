@@ -9,11 +9,11 @@
 class SNES : public Console {
 public:
     struct SMCHeader {
-        char title[22];         // 21 chars + null terminator
-        uint8_t mapMode;        // Map mode (e.g. 0x20 LoROM, 0x21 HiROM)
-        uint8_t cartType;       // ROM only, RAM, battery, coprocessor
-        uint8_t romSizeCode;    // ROM size code
-        uint8_t ramSizeCode;    // RAM size code
+        char title[22]; // 21 chars + null terminator
+        uint8_t mapMode; // Map mode (e.g. 0x20 LoROM, 0x21 HiROM)
+        uint8_t cartType; // ROM only, RAM, battery, coprocessor
+        uint8_t romSizeCode; // ROM size code
+        uint8_t ramSizeCode; // RAM size code
         uint16_t developerId;
         uint8_t romVersion;
         uint16_t checksumComplement;

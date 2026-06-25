@@ -75,6 +75,9 @@ set(SOURCES
     src/NES.cpp
     src/SNES.cpp
     src/SegaGenesis.cpp
+    src/Nintendo64.cpp
+    src/NintendoWii.cpp
+    src/NintendoSwitch.cpp
 )
 
 add_executable(emulator ${SOURCES})

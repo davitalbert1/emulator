@@ -119,9 +119,7 @@ void GameBoyColor::drawLCD(uint32_t* pixelBuffer) {
     int h = getScreenHeight();
     if (romData.empty()) {
         // Flat dark background (zinc-900)
-        for (int i = 0; i < w * h; ++i) {
-            pixelBuffer[i] = 0xFF18181B;
-        }
+        for (int i = 0; i < w * h; ++i) pixelBuffer[i] = 0xFF18181B;
     } else {
         // Copy the emulated framebuffer (monochrome rendering mode)
         std::memcpy(pixelBuffer, frameBuffer.data(), w * h * sizeof(uint32_t));

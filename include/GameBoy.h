@@ -9,12 +9,12 @@
 class GameBoy : public Console {
 public:
     struct GBHeader {
-        char title[17];          // 16 chars + null terminator (0x134 - 0x143)
-        uint8_t cgbFlag;        // 0x143 (0x80 = GB/CGB, 0xC0 = CGB only)
-        uint8_t cartType;       // 0x147
-        uint8_t romSizeCode;    // 0x148
-        uint8_t ramSizeCode;    // 0x149
-        uint8_t checksum;       // 0x14D
+        char title[17]; // 16 chars + null terminator (0x134 - 0x143)
+        uint8_t cgbFlag; // 0x143 (0x80 = GB/CGB, 0xC0 = CGB only)
+        uint8_t cartType; // 0x147
+        uint8_t romSizeCode; // 0x148
+        uint8_t ramSizeCode; // 0x149
+        uint8_t checksum; // 0x14D
         bool isValid;
     };
 

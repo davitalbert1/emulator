@@ -9,12 +9,12 @@
 class NintendoDS : public Console {
 public:
     struct NDSHeader {
-        char gameTitle[13];      // 12 chars + null terminator
-        char gameCode[5];        // 4 chars + null terminator
-        char makerCode[3];      // 2 chars + null terminator
-        uint8_t unitCode;       // 0 = NDS, 2 = DSi
-        uint8_t deviceType;     // Card device type
-        uint8_t deviceSize;     // Card size
+        char gameTitle[13]; // 12 chars + null terminator
+        char gameCode[5]; // 4 chars + null terminator
+        char makerCode[3]; // 2 chars + null terminator
+        uint8_t unitCode; // 0 = NDS, 2 = DSi
+        uint8_t deviceType; // Card device type
+        uint8_t deviceSize; // Card size
         uint8_t romVersion;
         uint16_t headerChecksum;
         bool isValid;

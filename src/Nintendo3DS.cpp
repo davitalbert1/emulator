@@ -14,8 +14,8 @@ Nintendo3DS::Nintendo3DS() : running(false), arm11Cpsr(0x00000010), arm9Cpsr(0x0
     // Initial PC/SP for ARM11 and ARM9
     arm11Registers[13] = 0x0FFFC000; // SP
     arm11Registers[15] = 0x00100000; // PC
-    arm9Registers[13] = 0x08003F00;  // SP
-    arm9Registers[15] = 0xFFFF0000;  // PC
+    arm9Registers[13] = 0x08003F00; // SP
+    arm9Registers[15] = 0xFFFF0000; // PC
 
     topFrameBuffer.resize(400 * 240, 0xFF18181B); // Zinc-900
     bottomFrameBuffer.resize(320 * 240, 0xFF18181B); // Zinc-900
@@ -102,9 +102,7 @@ void Nintendo3DS::parseHeader() {
 }
 
 void Nintendo3DS::step() {
-    if (running) {
-        executeNextInstruction();
-    }
+    if (running) executeNextInstruction();
 }
 
 void Nintendo3DS::executeNextInstruction() {
@@ -168,9 +166,7 @@ void Nintendo3DS::drawLCD(uint32_t* pixelBuffer) {
     int h = getScreenHeight();
 
     // Clear entire composited buffer to dark padding color first
-    for (int i = 0; i < w * h; ++i) {
-        pixelBuffer[i] = 0xFF09090B; // Zinc-950
-    }
+    for (int i = 0; i < w * h; ++i) pixelBuffer[i] = 0xFF09090B; // Zinc-950
 
     // Refresh sub-framebuffers
     std::fill(topFrameBuffer.begin(), topFrameBuffer.end(), 0xFF18181B);
@@ -183,10 +179,7 @@ void Nintendo3DS::drawLCD(uint32_t* pixelBuffer) {
         
         for (int y = 30; y < 210; ++y) {
             for (int x = 40; x < 360; ++x) {
-                // Background grid
-                if ((x + y) % 64 < 2) {
-                    topFrameBuffer[y * 400 + x] = 0xFF27272A;
-                }
+                if ((x + y) % 64 < 2) topFrameBuffer[y * 400 + x] = 0xFF27272A; // Background grid
             }
         }
         
@@ -200,16 +193,11 @@ void Nintendo3DS::drawLCD(uint32_t* pixelBuffer) {
                 // Red ring (Left eye offset)
                 int rx = x - (centerX - 5 + (int)(animOffset * 0.1f));
                 int ry = y - centerY;
-                if (std::abs(rx*rx + ry*ry - radius*radius) < 150) {
-                    topFrameBuffer[y * 400 + x] = 0xFFEF4444;
-                }
+                if (std::abs(rx*rx + ry*ry - radius*radius) < 150) topFrameBuffer[y * 400 + x] = 0xFFEF4444;
                 // Cyan ring (Right eye offset)
                 int cx = x - (centerX + 5 - (int)(animOffset * 0.1f));
                 int cy = y - centerY;
-                if (std::abs(cx*cx + cy*cy - radius*radius) < 150) {
-                    // Mix cyan or additive coloring
-                    topFrameBuffer[y * 400 + x] = 0xFF06B6D4;
-                }
+                if (std::abs(cx*cx + cy*cy - radius*radius) < 150) topFrameBuffer[y * 400 + x] = 0xFF06B6D4; // Mix cyan or additive coloring
             }
         }
 
@@ -238,9 +226,7 @@ void Nintendo3DS::drawLCD(uint32_t* pixelBuffer) {
 
     // 2. Draw black separator gap (lines 240 to 247)
     for (int y = 240; y < 248; ++y) {
-        for (int x = 0; x < w; ++x) {
-            pixelBuffer[y * w + x] = 0xFF09090B;
-        }
+        for (int x = 0; x < w; ++x) pixelBuffer[y * w + x] = 0xFF09090B;
     }
 
     // 3. Copy bottom screen (320x240) centered horizontally at X = 40 (lines 248 to 487)

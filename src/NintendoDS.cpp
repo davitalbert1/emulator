@@ -69,17 +69,10 @@ void NintendoDS::parseHeader() {
         std::memcpy(header.makerCode, romData.data() + 0x10, 2);
         header.makerCode[2] = '\0';
 
-        // Unit Code: 1 byte at 0x12
-        header.unitCode = romData[0x12];
-
-        // Device Type: 1 byte at 0x13
-        header.deviceType = romData[0x13];
-
-        // Device Size: 1 byte at 0x14
-        header.deviceSize = romData[0x14];
-
-        // ROM Version: 1 byte at 0x1E
-        header.romVersion = romData[0x1E];
+        header.unitCode = romData[0x12]; // Unit Code: 1 byte at 0x12
+        header.deviceType = romData[0x13]; // Device Type: 1 byte at 0x13
+        header.deviceSize = romData[0x14]; // Device Size: 1 byte at 0x14
+        header.romVersion = romData[0x1E]; // ROM Version: 1 byte at 0x1E
 
         // Checksum: 2 bytes at 0x15C
         header.headerChecksum = romData[0x15C] | (romData[0x15D] << 8);
@@ -99,9 +92,7 @@ void NintendoDS::parseHeader() {
 }
 
 void NintendoDS::step() {
-    if (running) {
-        executeNextInstruction();
-    }
+    if (running) executeNextInstruction();
 }
 
 void NintendoDS::executeNextInstruction() {
@@ -224,9 +215,7 @@ void NintendoDS::drawLCD(uint32_t* pixelBuffer) {
     
     // 2. Draw black separator gap (lines 192 to 199)
     for (int y = 192; y < 200; ++y) {
-        for (int x = 0; x < w; ++x) {
-            pixelBuffer[y * w + x] = 0xFF09090B; // Deep zinc black gap
-        }
+        for (int x = 0; x < w; ++x) pixelBuffer[y * w + x] = 0xFF09090B; // Deep zinc black gap
     }
 
     // 3. Copy Bottom screen

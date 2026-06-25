@@ -95,9 +95,7 @@ void SegaGenesis::parseHeader() {
 }
 
 void SegaGenesis::step() {
-    if (running) {
-        executeNextInstruction();
-    }
+    if (running) executeNextInstruction();
 }
 
 void SegaGenesis::executeNextInstruction() {
@@ -155,17 +153,13 @@ void SegaGenesis::drawLCD(uint32_t* pixelBuffer) {
 
     if (running && !romData.empty()) {
         // Parallax background sky (Deep Sega Blue)
-        for (int i = 0; i < w * h; ++i) {
-            frameBuffer[i] = 0xFF0050C0;
-        }
+        for (int i = 0; i < w * h; ++i) frameBuffer[i] = 0xFF0050C0;
 
         // Draw parallax background hills (lines 96 to 143)
         for (int y = 96; y < 144; ++y) {
             for (int x = 0; x < w; ++x) {
                 int hillY = 120 + (int)(16 * std::sin((x + PC * 0.5f) * 0.03f));
-                if (y > hillY) {
-                    frameBuffer[y * w + x] = 0xFF007A00; // Dark Green hill
-                }
+                if (y > hillY) frameBuffer[y * w + x] = 0xFF007A00; // Dark Green hill
             }
         }
 
@@ -304,8 +298,22 @@ void SegaGenesis::getAudioSamples(std::vector<float>& outBuffer) {
     outBuffer.clear();
 }
 
-const SegaGenesis::GenesisHeader& SegaGenesis::getHeader() const { return header; }
-uint32_t SegaGenesis::getD(int index) const { return (index >= 0 && index < 8) ? D[index] : 0; }
-uint32_t SegaGenesis::getA(int index) const { return (index >= 0 && index < 8) ? A[index] : 0; }
-uint16_t SegaGenesis::getSR() const { return SR; }
-uint32_t SegaGenesis::getPC() const { return PC; }
+const SegaGenesis::GenesisHeader& SegaGenesis::getHeader() const {
+    return header;
+}
+
+uint32_t SegaGenesis::getD(int index) const {
+    return (index >= 0 && index < 8) ? D[index] : 0;
+}
+
+uint32_t SegaGenesis::getA(int index) const {
+    return (index >= 0 && index < 8) ? A[index] : 0;
+}
+
+uint16_t SegaGenesis::getSR() const {
+    return SR;
+}
+
+uint32_t SegaGenesis::getPC() const {
+    return PC;
+}

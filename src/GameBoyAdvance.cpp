@@ -257,16 +257,12 @@ void GameBoyAdvance::drawLCD(uint32_t* pixelBuffer) {
     int h = getScreenHeight();
     
     // Fill screen with a clean dark-grey background (no neon grid or bouncing box)
-    for (int i = 0; i < w * h; ++i) {
-        pixelBuffer[i] = 0xFF18181B; // Zinc-900
-    }
+    for (int i = 0; i < w * h; ++i) pixelBuffer[i] = 0xFF18181B; // Zinc-900
 
     if (!romData.empty()) {
         // Draw a discrete green running indicator box (10x10) in the top-left corner
         for (int y = 5; y < 15; ++y) {
-            for (int x = 5; x < 15; ++x) {
-                pixelBuffer[y * w + x] = 0xFF00FF00;
-            }
+            for (int x = 5; x < 15; ++x) pixelBuffer[y * w + x] = 0xFF00FF00;
         }
     }
 }

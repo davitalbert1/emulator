@@ -15,6 +15,9 @@
 #include "NES.h"
 #include "SNES.h"
 #include "SegaGenesis.h"
+#include "Nintendo64.h"
+#include "NintendoWii.h"
+#include "NintendoSwitch.h"
 
 #include <iostream>
 #include <cstring>
@@ -159,6 +162,12 @@ void EmulatorApp::loadConsole(int index) {
         activeConsole = std::make_unique<SNES>();
     } else if (index == 9) {
         activeConsole = std::make_unique<SegaGenesis>();
+    } else if (index == 10) {
+        activeConsole = std::make_unique<Nintendo64>();
+    } else if (index == 11) {
+        activeConsole = std::make_unique<NintendoWii>();
+    } else if (index == 12) {
+        activeConsole = std::make_unique<NintendoSwitch>();
     }
 
     // Recreate SDL texture matching the console's native resolution
@@ -247,8 +256,8 @@ void EmulatorApp::updateLCDTexture() {
 void EmulatorApp::renderImGui() {
     if (showConsoleSelector) {
         // Display launcher selector window in the center of the screen
-        ImGui::SetNextWindowPos(ImVec2(320, 180), ImGuiCond_Always);
-        ImGui::SetNextWindowSize(ImVec2(640, 360), ImGuiCond_Always);
+        ImGui::SetNextWindowPos(ImVec2(320, 135), ImGuiCond_Always);
+        ImGui::SetNextWindowSize(ImVec2(640, 450), ImGuiCond_Always);
         ImGui::Begin("Inicializador do Emulador Multi-Consoles", nullptr, 
                      ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
         
@@ -258,7 +267,7 @@ void EmulatorApp::renderImGui() {
         ImGui::Spacing();
 
         ImGui::Columns(2, "launcher_columns", false);
-        ImVec2 buttonSize(280, 35);
+        ImVec2 buttonSize(280, 32);
 
         // Column 1: Handhelds
         ImGui::Text("Consoles Portateis:");
@@ -321,6 +330,21 @@ void EmulatorApp::renderImGui() {
             loadConsole(9);
             showConsoleSelector = false;
         }
+        ImGui::Spacing();
+        if (ImGui::Button("Nintendo 64 (N64)", buttonSize)) {
+            loadConsole(10);
+            showConsoleSelector = false;
+        }
+        ImGui::Spacing();
+        if (ImGui::Button("Nintendo Wii", buttonSize)) {
+            loadConsole(11);
+            showConsoleSelector = false;
+        }
+        ImGui::Spacing();
+        if (ImGui::Button("Nintendo Switch", buttonSize)) {
+            loadConsole(12);
+            showConsoleSelector = false;
+        }
 
         ImGui::Columns(1);
         ImGui::End();
@@ -345,6 +369,9 @@ void EmulatorApp::renderImGui() {
             if (ImGui::MenuItem("NES", nullptr, activeConsoleIndex == 7)) loadConsole(7);
             if (ImGui::MenuItem("SNES", nullptr, activeConsoleIndex == 8)) loadConsole(8);
             if (ImGui::MenuItem("Sega Genesis", nullptr, activeConsoleIndex == 9)) loadConsole(9);
+            if (ImGui::MenuItem("Nintendo 64", nullptr, activeConsoleIndex == 10)) loadConsole(10);
+            if (ImGui::MenuItem("Nintendo Wii", nullptr, activeConsoleIndex == 11)) loadConsole(11);
+            if (ImGui::MenuItem("Nintendo Switch", nullptr, activeConsoleIndex == 12)) loadConsole(12);
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Ajuda")) {
@@ -389,6 +416,9 @@ void EmulatorApp::renderImGui() {
         else if (activeConsoleIndex == 7) filter = "NES ROMs (*.nes)\0*.nes\0All Files (*.*)\0*.*\0";
         else if (activeConsoleIndex == 8) filter = "SNES ROMs (*.sfc;*.smc)\0*.sfc;*.smc\0All Files (*.*)\0*.*\0";
         else if (activeConsoleIndex == 9) filter = "Sega Genesis ROMs (*.gen;*.md)\0*.gen;*.md\0All Files (*.*)\0*.*\0";
+        else if (activeConsoleIndex == 10) filter = "N64 ROMs (*.z64;*.n64;*.v64)\0*.z64;*.n64;*.v64\0All Files (*.*)\0*.*\0";
+        else if (activeConsoleIndex == 11) filter = "Wii Images (*.wbfs;*.iso;*.gcm)\0*.wbfs;*.iso;*.gcm\0All Files (*.*)\0*.*\0";
+        else if (activeConsoleIndex == 12) filter = "Switch Files (*.nsp;*.xci;*.nro)\0*.nsp;*.xci;*.nro\0All Files (*.*)\0*.*\0";
         
         HWND hwnd = NULL;
         #ifdef _WIN32
@@ -440,10 +470,7 @@ void EmulatorApp::renderImGui() {
         if (cursorPadding.y < 0) cursorPadding.y = 0;
         ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + cursorPadding.x, ImGui::GetCursorPosY() + cursorPadding.y));
 
-        ImGui::Image(
-            reinterpret_cast<ImTextureID>(reinterpret_cast<intptr_t>(lcdTexture)),
-            textureSize
-        );
+        ImGui::Image(reinterpret_cast<ImTextureID>(reinterpret_cast<intptr_t>(lcdTexture)), textureSize);
     } else {
         ImGui::Text("Nenhuma textura de tela instanciada.");
     }

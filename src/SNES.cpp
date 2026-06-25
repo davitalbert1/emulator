@@ -300,13 +300,39 @@ void SNES::getAudioSamples(std::vector<float>& outBuffer) {
     outBuffer.clear();
 }
 
-const SNES::SMCHeader& SNES::getHeader() const { return header; }
-uint16_t SNES::getA() const { return A; }
-uint16_t SNES::getX() const { return X; }
-uint16_t SNES::getY() const { return Y; }
-uint16_t SNES::getDP() const { return DP; }
-uint16_t SNES::getSP() const { return SP; }
-uint8_t SNES::getDB() const { return DB; }
-uint8_t SNES::getPB() const { return PB; }
-uint16_t SNES::getPC() const { return PC; }
-uint8_t SNES::getSR() const { return SR; }
+const SNES::SMCHeader& SNES::getHeader() const {
+    return header; }
+uint16_t SNES::getA() const {
+    return A;
+}
+
+uint16_t SNES::getX() const {
+    return X;
+}
+
+uint16_t SNES::getY() const {
+    return Y;
+}
+uint16_t SNES::getDP() const {
+    return DP;
+}
+
+uint16_t SNES::getSP() const {
+    return SP;
+}
+
+uint8_t SNES::getDB() const {
+    return DB;
+}
+
+uint8_t SNES::getPB() const {
+    return PB;
+}
+
+uint16_t SNES::getPC() const {
+    return PC;
+}
+
+uint8_t SNES::getSR() const {
+    return SR;
+}

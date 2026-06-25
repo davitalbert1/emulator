@@ -1369,9 +1369,7 @@ void GameBoy::generateAudio(int numSamples) {
                 uint16_t bit1 = (lfsr >> 1) & 0x0001;
                 uint16_t result = bit0 ^ bit1;
                 lfsr = (lfsr >> 1) | (result << 14);
-                if (ch4ShortStep) {
-                    lfsr = (lfsr & ~(1 << 6)) | (result << 6);
-                }
+                if (ch4ShortStep) lfsr = (lfsr & ~(1 << 6)) | (result << 6);
             }
             ch4Val = ((lfsr & 0x01) ? 1.0f : -1.0f) * ch4Vol;
         }

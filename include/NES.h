@@ -9,14 +9,14 @@
 class NES : public Console {
 public:
     struct iNESHeader {
-        char magic[4];          // Must be "NES\x1A"
-        uint8_t prgRomCount;    // Number of 16KB PRG ROM banks
-        uint8_t chrRomCount;    // Number of 8KB CHR ROM banks
-        uint8_t flags6;         // Mapper, mirroring, battery, trainer
-        uint8_t flags7;         // Mapper, VS/Playchoice, NES 2.0
-        uint8_t prgRamSize;     // PRG RAM size (often 8KB)
-        uint8_t flags9;         // TV system
-        uint8_t flags10;        // TV system, PRG RAM presence
+        char magic[4]; // Must be "NES\x1A"
+        uint8_t prgRomCount; // Number of 16KB PRG ROM banks
+        uint8_t chrRomCount; // Number of 8KB CHR ROM banks
+        uint8_t flags6; // Mapper, mirroring, battery, trainer
+        uint8_t flags7; // Mapper, VS/Playchoice, NES 2.0
+        uint8_t prgRamSize; // PRG RAM size (often 8KB)
+        uint8_t flags9; // TV system
+        uint8_t flags10; // TV system, PRG RAM presence
         bool isValid;
         int mapperId;
     };

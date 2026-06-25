@@ -9,9 +9,9 @@
 class Nintendo3DS : public Console {
 public:
     struct NCCHHeader {
-        char gameTitle[17];      // 16 chars + null terminator
-        char productCode[11];    // 10 chars + null terminator (e.g. CTR-P-CTAP)
-        char makerCode[3];      // 2 chars + null terminator
+        char gameTitle[17]; // 16 chars + null terminator
+        char productCode[11]; // 10 chars + null terminator (e.g. CTR-P-CTAP)
+        char makerCode[3]; // 2 chars + null terminator
         uint64_t programId;
         uint32_t sdkVersion;
         uint8_t systemMode;

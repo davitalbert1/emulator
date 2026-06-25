@@ -39,9 +39,7 @@ bool Atari2600::loadROM(const std::string& romPath) {
 }
 
 void Atari2600::step() {
-    if (running) {
-        executeNextInstruction();
-    }
+    if (running) executeNextInstruction();
 }
 
 void Atari2600::executeNextInstruction() {
@@ -112,9 +110,7 @@ void Atari2600::drawLCD(uint32_t* pixelBuffer) {
                 case 6: rowColor = 0xFF8B5CF6; break; // Purple
                 case 7: rowColor = 0xFFEC4899; break; // Pink
             }
-            for (int x = 0; x < w; ++x) {
-                frameBuffer[y * w + x] = rowColor;
-            }
+            for (int x = 0; x < w; ++x) frameBuffer[y * w + x] = rowColor;
         }
 
         // Draw a bouncing player square sprite (white)
@@ -124,9 +120,7 @@ void Atari2600::drawLCD(uint32_t* pixelBuffer) {
             for (int dx = -4; dx <= 4; ++dx) {
                 int px = playerX + dx;
                 int py = playerY + dy;
-                if (px >= 0 && px < w && py >= 0 && py < h) {
-                    frameBuffer[py * w + px] = 0xFFFFFFFF; // White player sprite
-                }
+                if (px >= 0 && px < w && py >= 0 && py < h) frameBuffer[py * w + px] = 0xFFFFFFFF; // White player sprite
             }
         }
     } else {
@@ -202,9 +196,26 @@ void Atari2600::getAudioSamples(std::vector<float>& outBuffer) {
     outBuffer.clear();
 }
 
-uint8_t Atari2600::getA() const { return A; }
-uint8_t Atari2600::getX() const { return X; }
-uint8_t Atari2600::getY() const { return Y; }
-uint8_t Atari2600::getSP() const { return SP; }
-uint16_t Atari2600::getPC() const { return PC; }
-uint8_t Atari2600::getSR() const { return SR; }
+uint8_t Atari2600::getA() const {
+    return A;
+}
+
+uint8_t Atari2600::getX() const {
+    return X;
+}
+
+uint8_t Atari2600::getY() const {
+    return Y;
+}
+
+uint8_t Atari2600::getSP() const {
+    return SP;
+}
+
+uint16_t Atari2600::getPC() const {
+    return PC;
+}
+
+uint8_t Atari2600::getSR() const {
+    return SR;
+}
